@@ -1,5 +1,4 @@
-# ud036_StarterCode
-Source code for a Movie Trailer website.
+#  Source code for a Movie Trailer website.
 This is a program rendering a movie trailer website.
 Steps to run it are: 
 1. Download all .py files
