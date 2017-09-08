@@ -39,6 +39,16 @@ main_page_head = '''
             background-color: #EEE;
             cursor: pointer;
         }
+        .poster {
+            margin: 1.5em auto;
+        }
+        @media (max-width: 991px) {
+            .title-text {
+                width: 30%;
+                float: right;
+                word-break: break-all;
+            }
+        }
         .scale-media {
             padding-bottom: 56.25%;
             position: relative;
@@ -118,9 +128,9 @@ main_page_content = '''
 
 
 movie_tile_content = '''
-<div class="col-lg-4 col-md-4 col-sm-12 movie-tile music-poster" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" height="240">
-    <h2>{movie_title}</h2>
+<div class="col-lg-4 col-md-4 col-sm-12 movie-tile" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+    <img class="poster" src="{poster_image_url}" height="240">
+    <h2 class="title-text">{movie_title}</h2>
 </div>
 '''
 
