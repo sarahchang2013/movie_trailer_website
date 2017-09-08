@@ -39,10 +39,6 @@ main_page_head = '''
             background-color: #EEE;
             cursor: pointer;
         }
-        .music-poster {
-            padding: 1.5em;
-            box-size: border-box;
-        }
         .scale-media {
             padding-bottom: 56.25%;
             position: relative;
@@ -112,7 +108,7 @@ main_page_content = '''
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="row">
       {movie_tiles}
     </div>
   </body>
