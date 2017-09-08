@@ -1,10 +1,4 @@
-import webbrowser
-import os
-import re
 
-
-# Styles and scripting for the page
-main_page_head = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,11 +89,7 @@ main_page_head = '''
         });
     </script>
 </head>
-'''
 
-
-# The main page layout and title bar
-main_page_content = '''
   <body>
     <!-- Trailer Video Modal -->
     <div class="modal" id="trailer">
@@ -125,55 +115,37 @@ main_page_content = '''
       </div>
     </div>
     <div class="row">
-      {movie_tiles}
+      
+<div class="col-lg-4 col-md-4 col-sm-12 movie-tile" data-trailer-youtube-id="U50o92vADOg" data-toggle="modal" data-target="#trailer">
+    <img class="poster" src="https://i.ytimg.com/vi/U50o92vADOg/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCGInbF_gv9AgWKrYY867ZWbtc_Aw" height="240">
+    <h2 class="title-text">Anxiety Treatment: Maldives</h2>
+</div>
+
+<div class="col-lg-4 col-md-4 col-sm-12 movie-tile" data-trailer-youtube-id="jZStK7nfYYo" data-toggle="modal" data-target="#trailer">
+    <img class="poster" src="https://i.ytimg.com/vi/jZStK7nfYYo/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAbUiooSjew67RdeBproi-iCslsUw" height="240">
+    <h2 class="title-text">Life Rhythm In Southeast Asia</h2>
+</div>
+
+<div class="col-lg-4 col-md-4 col-sm-12 movie-tile" data-trailer-youtube-id="FOr7NvXxQQs" data-toggle="modal" data-target="#trailer">
+    <img class="poster" src="https://i.ytimg.com/vi/FOr7NvXxQQs/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDD3sASab0XevNtdbOBhmlOzLQrkw" height="240">
+    <h2 class="title-text">Meditation: Saipan In 4K</h2>
+</div>
+
+<div class="col-lg-4 col-md-4 col-sm-12 movie-tile" data-trailer-youtube-id="P3sr9xLQpWQ" data-toggle="modal" data-target="#trailer">
+    <img class="poster" src="https://i.ytimg.com/vi/P3sr9xLQpWQ/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLB4ApPYNz208YnqmcFWrWPbXXvR2w" height="240">
+    <h2 class="title-text">Flying above Mount Everest</h2>
+</div>
+
+<div class="col-lg-4 col-md-4 col-sm-12 movie-tile" data-trailer-youtube-id="gTY16FDO-BQ" data-toggle="modal" data-target="#trailer">
+    <img class="poster" src="https://i.ytimg.com/vi/gTY16FDO-BQ/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAa-IL5gkE8NxGalvTRJxIp6T48Rg" height="240">
+    <h2 class="title-text">Animal Kingdom: Cute Pandas</h2>
+</div>
+
+<div class="col-lg-4 col-md-4 col-sm-12 movie-tile" data-trailer-youtube-id="tBzgT5godVA" data-toggle="modal" data-target="#trailer">
+    <img class="poster" src="https://i.ytimg.com/vi/tBzgT5godVA/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAFEI13SBwFxmrmQumgz7Vu7G2YYA" height="240">
+    <h2 class="title-text">Animal Kingdom: Hermit Crabs</h2>
+</div>
+
     </div>
   </body>
 </html>
-'''# A single movie entry html template
-
-
-
-movie_tile_content = '''
-<div class="col-lg-4 col-md-4 col-sm-12 movie-tile" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img class="poster" src="{poster_image_url}" height="240">
-    <h2 class="title-text">{movie_title}</h2>
-</div>
-'''
-
-
-def create_movie_tiles_content(movies):
-    # The HTML content for this section of the page
-    content = ''
-    for movie in movies:
-        # Extract the youtube ID from the url
-        youtube_id_match = re.search(
-            r'(?<=v=)[^&#]+', movie.trailer_youtube_url)
-        youtube_id_match = youtube_id_match or re.search(
-            r'(?<=be/)[^&#]+', movie.trailer_youtube_url)
-        trailer_youtube_id = (youtube_id_match.group(0) if youtube_id_match
-                              else None)
-
-        # Append the tile for the movie with its content filled in
-        content += movie_tile_content.format(
-            movie_title=movie.title,
-            poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
-        )
-    return content
-
-
-def open_movies_page(movies):
-    # Create or overwrite the output file
-    output_file = open('index.html', 'w')
-
-    # Replace the movie tiles placeholder generated content
-    rendered_content = main_page_content.format(
-        movie_tiles=create_movie_tiles_content(movies))
-
-    # Output the file
-    output_file.write(main_page_head + rendered_content)
-    output_file.close()
-
-    # open the output file in the browser (in a new tab, if possible)
-    url = os.path.abspath(output_file.name)
-    webbrowser.open('file://' + url, new=2)
